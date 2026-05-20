@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#05060e" />
+  <!-- No-cache: ensure browser always fetches the latest assets -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title data-i18n="app.title">Frame Studio — اعمال فریم روی تصاویر</title>
+  <meta name="description" content="Apply a frame template to multiple images and download as ZIP" />
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Vazirmatn', 'system-ui', 'sans-serif'],
+            fa: ['Vazirmatn', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            cyan: {
+              soft: '#22e0ff',
+              DEFAULT: '#06d4ff',
+              deep: '#0891b2'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="styles/main.css?v=20260512e" />
+  <script defer src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+
+<body class="font-sans antialiased min-h-screen selection:bg-cyan/30">
+
+  <!-- Animated mesh background -->
+  <div class="fixed inset-0 -z-10 bg-gradient-mesh pointer-events-none"></div>
+  <div class="fixed inset-0 -z-10 bg-noise opacity-[0.02] pointer-events-none"></div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="glass-header sticky top-0 z-40">
+    <div class="container mx-auto px-3 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div class="logo-mark shrink-0">
+          <svg viewBox="0 0 24 24" fill="none" class="w-6 h-6">
+            <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M3 16l5-5 4 4 4-4 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="9" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <h1 class="text-base sm:text-xl font-bold leading-tight truncate" data-i18n="app.name">Frame Studio</h1>
+          <p class="text-[11px] sm:text-xs text-muted leading-none hidden sm:block" data-i18n="app.tagline">اعمال فریم روی دسته‌ای از تصاویر</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <div class="glass-pill flex items-center gap-1 p-1 text-[11px] sm:text-xs font-semibold">
+          <button data-lang-btn="fa" class="lang-btn px-2 sm:px-2.5 py-1 rounded-full">فا</button>
+          <button data-lang-btn="en" class="lang-btn px-2 sm:px-2.5 py-1 rounded-full">EN</button>
+        </div>
+        <button id="theme-toggle" class="glass-pill w-9 h-9 flex items-center justify-center" aria-label="Toggle theme">
+          <svg class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+          </svg>
+          <svg class="w-4 h-4 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hidden file inputs (kept outside drop zones to avoid event interference) -->
+  <input type="file" id="frame-input" accept="image/*" class="sr-only" />
+  <input type="file" id="images-input" accept="image/*" multiple class="sr-only" />
+
+  <main class="container mx-auto px-3 sm:px-6 py-6 sm:py-8 max-w-6xl">
+
+    <!-- ============ HERO ============ -->
+    <section class="text-center mb-7 sm:mb-10">
+      <h2 class="text-2xl sm:text-4xl font-extrabold mb-2 sm:mb-3 text-gradient-brand" data-i18n="hero.title">
+        تصاویرتو با یک کلیک فریم بزن
+      </h2>
+      <p class="text-xs sm:text-base text-muted max-w-2xl mx-auto px-2" data-i18n="hero.subtitle">
+        فریم رو آپلود کن، تصاویرت رو پشت بنداز، و یک فایل ZIP تمیز با فرمت دلخواه بگیر.
+      </p>
+    </section>
+
+    <!-- ============ STEP 1 + 2 (side by side on lg) ============ -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 mb-5 sm:mb-6">
+
+      <!-- STEP 1: FRAME -->
+      <div>
+        <div class="step-label">
+          <span class="step-num">1</span>
+          <span data-i18n="step.frame.title">انتخاب فریم</span>
+        </div>
+        <div id="frame-drop" class="glass-card drop-zone group" tabindex="0" role="button" aria-label="Select frame image">
+          <div id="frame-empty" class="drop-empty">
+            <div class="icon-bubble">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="3"/>
+                <path d="M3 16l5-5 4 4 4-4 5 5"/>
+                <circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm sm:text-base" data-i18n="frame.cta">فریم رو بکش اینجا یا کلیک کن</p>
+            <p class="text-[11px] sm:text-xs text-muted mt-1 px-2" data-i18n="frame.hint">پیشنهاد: PNG شفاف با ابعاد یکسان با تصاویر هدف</p>
+          </div>
+          <div id="frame-preview" class="hidden w-full">
+            <div class="flex items-center gap-3">
+              <div class="frame-thumb">
+                <img id="frame-thumb-img" alt="frame preview" />
+              </div>
+              <div class="flex-1 min-w-0">
+                <p id="frame-name" class="font-semibold text-sm truncate"></p>
+                <p id="frame-meta" class="text-[11px] text-muted mt-0.5"></p>
+              </div>
+              <button type="button" id="frame-clear" class="btn-ghost-icon no-zone-click" aria-label="remove frame">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: IMAGES -->
+      <div>
+        <div class="step-label">
+          <span class="step-num">2</span>
+          <span data-i18n="step.images.title">انتخاب تصاویر</span>
+          <span id="images-count" class="step-badge hidden">0 / 300</span>
+        </div>
+        <div id="images-drop" class="glass-card drop-zone group" tabindex="0" role="button" aria-label="Select images">
+          <div id="images-empty" class="drop-empty">
+            <div class="icon-bubble">
+              <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+              </svg>
+            </div>
+            <p class="font-semibold text-sm sm:text-base" data-i18n="images.cta">تصاویر رو اینجا بنداز یا کلیک کن</p>
+            <p class="text-[11px] sm:text-xs text-muted mt-1 px-2" data-i18n="images.hint">حداکثر ۳۰۰ تصویر — همه فرمت‌ها</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Images toolbar + grid (full width) -->
+    <section id="images-section" class="mb-6">
+
+      <!-- Upload progress (shown while decoding/thumbnailing newly added files) -->
+      <div id="upload-loader" class="hidden glass-card p-3 mb-3 flex items-center gap-3">
+        <div class="spinner-sm"></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold truncate">
+            <span data-i18n="upload.processing">در حال بارگذاری تصاویر…</span>
+          </p>
+          <div class="progress-track mt-1.5" style="height:6px">
+            <div id="upload-fill" class="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+        <span id="upload-count" class="text-xs font-bold tabular-nums shrink-0">0 / 0</span>
+      </div>
+
+      <div id="images-toolbar" class="hidden flex items-center justify-between gap-3 mb-3">
+        <div class="text-xs sm:text-sm">
+          <span class="text-muted" data-i18n="images.added">افزوده شد:</span>
+          <span id="images-added" class="font-bold">0</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="images-add-more" class="btn-ghost text-xs">
+            <span data-i18n="images.addMore">افزودن بیشتر</span>
+          </button>
+          <button id="images-clear" class="btn-ghost text-xs text-rose-500 hover:text-rose-600">
+            <span data-i18n="images.clearAll">پاک کردن همه</span>
+          </button>
+        </div>
+      </div>
+      <div id="images-grid" class="hidden grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2"></div>
+    </section>
+
+    <!-- ============ STEP 3: SETTINGS ============ -->
+    <section class="mb-5 sm:mb-6">
+      <div class="step-label">
+        <span class="step-num">3</span>
+        <span data-i18n="step.settings.title">تنظیمات</span>
+        <span class="step-optional" data-i18n="step.settings.optional">اختیاری — در صورت عدم تنظیم، موارد پیش‌فرض اعمال می‌شود</span>
+      </div>
+
+      <div class="glass-card p-4 sm:p-5">
+        <div class="settings-grid">
+
+          <!-- Fit mode -->
+          <div>
+            <label for="fit-mode" class="block text-sm font-semibold mb-2" data-i18n="settings.fit.label">روش جا‌گذاری تصویر (وقتی ابعاد متفاوته)</label>
+            <select id="fit-mode" class="glass-select">
+              <option value="cover" selected data-i18n-option="settings.fit.coverFull">Cover — برش وسط (پیشنهادی)</option>
+              <option value="contain" data-i18n-option="settings.fit.containFull">Contain — با حاشیه</option>
+              <option value="stretch" data-i18n-option="settings.fit.stretchFull">Stretch — کشیدن</option>
+            </select>
+          </div>
+
+          <!-- Output format -->
+          <div>
+            <label for="output-format" class="block text-sm font-semibold mb-2" data-i18n="settings.format.label">فرمت خروجی</label>
+            <select id="output-format" class="glass-select">
+              <option value="webp-smart" data-i18n-option="settings.format.webpSmart">WebP هوشمند (پیشنهادی)</option>
+              <option value="webp" data-i18n-option="settings.format.webp">WebP (کیفیت دستی)</option>
+              <option value="png" data-i18n-option="settings.format.png">PNG (با شفافیت)</option>
+              <option value="jpeg" data-i18n-option="settings.format.jpeg">JPEG (کیفیت دستی)</option>
+              <option value="auto" data-i18n-option="settings.format.auto">حفظ فرمت اصلی</option>
+            </select>
+            <div id="quality-row" class="mt-2 hidden">
+              <label class="flex items-center justify-between text-xs">
+                <span class="text-muted" data-i18n="settings.format.quality">کیفیت:</span>
+                <span id="quality-value" class="font-bold">90%</span>
+              </label>
+              <input type="range" id="quality-slider" min="50" max="100" value="90" class="w-full mt-1 accent-cyan" />
+            </div>
+          </div>
+
+          <!-- Naming mode -->
+          <div>
+            <label for="naming-mode" class="block text-sm font-semibold mb-2" data-i18n="settings.naming.label">نام‌گذاری فایل خروجی</label>
+            <select id="naming-mode" class="glass-select">
+              <option value="original" data-i18n-option="settings.naming.original">نام اصلی تصویر (پیشنهادی)</option>
+              <option value="pattern" data-i18n-option="settings.naming.pattern">الگوی سفارشی</option>
+            </select>
+            <div id="pattern-row" class="mt-2 hidden">
+              <input type="text" id="naming-pattern" value="framed_{n}" class="glass-input" />
+              <p class="text-[10px] text-muted mt-1.5">
+                <span data-i18n="settings.naming.tokens">پارامترها:</span>
+                <code class="mx-0.5">{n}</code> <span data-i18n="settings.naming.tokenN">شماره</span>،
+                <code class="mx-0.5">{name}</code> <span data-i18n="settings.naming.tokenName">نام اصلی</span>،
+                <code class="mx-0.5">{date}</code> <span data-i18n="settings.naming.tokenDate">تاریخ</span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <button id="process-btn" class="action-btn mt-5" disabled>
+        <span class="btn-default inline-flex items-center gap-2.5">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span data-i18n="action.process">پردازش و دانلود ZIP</span>
+        </span>
+        <span class="btn-loading">
+          <span class="spinner-btn"></span>
+          <span data-i18n="action.processing">در حال پردازش…</span>
+        </span>
+      </button>
+
+      <p id="process-hint" class="text-center text-xs text-muted mt-2" data-i18n="action.hint">
+        ابتدا یک فریم و حداقل یک تصویر اضافه کن
+      </p>
+    </section>
+
+    <!-- ============ PROGRESS OVERLAY ============ -->
+    <div id="progress-overlay" class="hidden">
+      <div class="glass-card p-4 sm:p-5">
+        <div class="flex items-center justify-between mb-3 gap-3">
+          <div class="min-w-0">
+            <p class="font-bold truncate" data-i18n="progress.title">در حال پردازش…</p>
+            <p id="progress-sub" class="text-[11px] sm:text-xs text-muted mt-0.5 truncate"></p>
+          </div>
+          <p id="progress-pct" class="text-xl sm:text-2xl font-extrabold tabular-nums shrink-0">0%</p>
+        </div>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill" style="width:0%"></div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 sm:gap-3 mt-3 text-[11px] sm:text-xs">
+          <div><span class="text-muted" data-i18n="progress.done">انجام‌شده:</span> <span id="stat-done" class="font-bold tabular-nums">0</span></div>
+          <div><span class="text-muted" data-i18n="progress.speed">سرعت:</span> <span id="stat-speed" class="font-bold tabular-nums">—</span></div>
+          <div><span class="text-muted" data-i18n="progress.eta">باقی‌مونده:</span> <span id="stat-eta" class="font-bold tabular-nums">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="text-center mt-10 mb-4 text-[11px] sm:text-xs text-muted">
+      <p>
+        <span data-i18n="footer.credit">ساخته شده به وسیله YJ19</span>
+        <span class="text-cyan mx-1">●</span>
+        <span data-i18n="footer.local">کاملاً محلی، هیچ فایلی به سرور ارسال نمی‌شه</span>
+      </p>
+    </footer>
+  </main>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="fixed top-3 end-3 sm:top-4 sm:end-4 z-50 flex flex-col gap-2 max-w-[calc(100%-1.5rem)] sm:max-w-sm pointer-events-none"></div>
+
+  <!-- App entry (single bundle, no ES modules — works with file:// too) -->
+  <script defer src="scripts/bundle.js?v=20260512e"></script>
+</body>
+</html>
