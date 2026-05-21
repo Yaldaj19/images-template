@@ -32,9 +32,9 @@ git clone https://github.com/Yaldaj19/set-images-template.git
 cd set-images-template
 
 # Open in your browser (any modern browser works)
-start Images-template-page.html       # Windows
-open Images-template-page.html        # macOS
-xdg-open Images-template-page.html    # Linux
+start index.html       # Windows
+open index.html        # macOS
+xdg-open index.html    # Linux
 ```
 
 That's it. No dependencies to install. No build step. Everything is loaded via CDN.
@@ -48,7 +48,7 @@ python -m http.server 8000
 # Node
 npx serve .
 ```
-Then visit `http://localhost:8000/Images-template-page.html`.
+Then visit `http://localhost:8000/`.
 
 ---
 
@@ -68,10 +68,10 @@ Then visit `http://localhost:8000/Images-template-page.html`.
 
 ```
 set-images-template/
-├── Images-template-page.html   # Main entry point — open this in browser
-├── assets/                     # favicon, images, frame templates
-├── scripts/                    # JavaScript modules
-└── styles/                     # Custom CSS
+├── index.html       # Main entry point — open this in browser
+├── assets/          # favicon, images, frame templates
+├── scripts/         # JavaScript modules
+└── styles/          # Custom CSS
 ```
 
 ---
