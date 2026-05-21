@@ -1,11 +1,17 @@
-﻿# OS
+# OS
 .DS_Store
 Thumbs.db
+
 # Editor
 .vscode/
 .idea/
+
 # Dependencies
 node_modules/
+
 # Build output
 dist/
 build/
+
+# Claude Code local settings (may contain secrets - never commit)
+.claude/settings.local.json
