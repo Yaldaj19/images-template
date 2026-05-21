@@ -289,6 +289,36 @@ body {
   .thumb-remove { opacity: 0.85; }
 }
 
+/* "More images" tile — collapsed overflow beyond the first row */
+.thumb-more {
+  aspect-ratio: 1;
+  border-radius: 9px;
+  border: 1px dashed var(--glass-border-light);
+  background: rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-muted-light);
+  user-select: none;
+}
+[data-theme="dark"] .thumb-more {
+  border-color: var(--glass-border-dark);
+  background: rgba(20, 24, 40, 0.5);
+  color: var(--text-muted-dark);
+}
+.thumb-more-dots {
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 0.5;
+  letter-spacing: 2px;
+}
+.thumb-more-count {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
 /* ============ Buttons ============ */
 .btn-ghost {
   padding: 6px 12px;

@@ -687,6 +687,16 @@
     return String(s).replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   }
 
+  // Number of grid columns at the current viewport — mirrors the
+  // Tailwind breakpoints on #images-grid (4 / sm:6 / md:8 / lg:10).
+  function getGridColumns() {
+    const w = window.innerWidth;
+    if (w >= 1024) return 10;
+    if (w >= 768) return 8;
+    if (w >= 640) return 6;
+    return 4;
+  }
+
   function renderImagesState(onRemove) {
     const empty = document.getElementById('images-empty');
     const grid = document.getElementById('images-grid');
@@ -709,7 +719,13 @@
     added.textContent = formatNumber(state.images.length);
     grid.innerHTML = '';
     const frag = document.createDocumentFragment();
-    for (const img of state.images) {
+    // Show a single row only; collapse any overflow into a "more" tile.
+    const cols = getGridColumns();
+    const total = state.images.length;
+    const hasOverflow = total > cols;
+    const visibleCount = hasOverflow ? cols - 1 : total;
+    for (let i = 0; i < visibleCount; i++) {
+      const img = state.images[i];
       const wrap = document.createElement('div');
       wrap.className = 'thumb-item';
       wrap.innerHTML =
@@ -722,6 +738,14 @@
         onRemove(Number(e.currentTarget.dataset.id));
       });
       frag.appendChild(wrap);
+    }
+    if (hasOverflow) {
+      const more = document.createElement('div');
+      more.className = 'thumb-more';
+      more.innerHTML =
+        '<span class="thumb-more-dots">···</span>' +
+        '<span class="thumb-more-count" dir="ltr">+' + formatNumber(total - visibleCount) + '</span>';
+      frag.appendChild(more);
     }
     grid.appendChild(frag);
   }
@@ -743,6 +767,18 @@
     renderImagesState((id) => removeImage(id, rerender));
     updateProcessButton();
   }
+
+  // Re-render when the viewport crosses a column breakpoint, so the
+  // single visible row always matches the actual column count.
+  let __gridCols = getGridColumns();
+  let __resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(__resizeTimer);
+    __resizeTimer = setTimeout(() => {
+      const c = getGridColumns();
+      if (c !== __gridCols) { __gridCols = c; rerender(); }
+    }, 150);
+  });
 
   /* ========== Worker (inline via Blob URL) ========== */
   const WORKER_CODE = [
