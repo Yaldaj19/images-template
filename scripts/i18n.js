@@ -2,8 +2,8 @@
 
 const dictionaries = {
   fa: {
-    'app.title': 'Frame Studio — اعمال فریم روی تصاویر',
-    'app.name': 'Frame Studio',
+    'app.title': 'جایگذاری الگو/امضا روی تصویر',
+    'app.name': 'جایگذاری الگو/امضا روی تصویر',
     'app.tagline': 'اعمال فریم روی دسته‌ای از تصاویر',
     'hero.title': 'تصاویرتو با یک کلیک فریم بزن',
     'hero.subtitle': 'فریم رو آپلود کن، تصاویرت رو پشت بنداز، و یک فایل ZIP تمیز با فرمت دلخواه بگیر.',
@@ -17,7 +17,7 @@ const dictionaries = {
     'frame.loaded': 'فریم بارگذاری شد',
 
     'images.cta': 'تصاویر رو اینجا بنداز یا کلیک کن',
-    'images.hint': 'حداکثر ۵۰۰ تصویر — همه فرمت‌ها',
+    'images.hint': 'حداکثر ۳۰۰ تصویر — همه فرمت‌ها',
     'images.added': 'افزوده شد:',
     'images.addMore': 'افزودن بیشتر',
     'images.clearAll': 'پاک کردن همه',
@@ -60,7 +60,7 @@ const dictionaries = {
     'progress.zipping': 'در حال ساخت فایل ZIP…',
 
     'toast.frameRequired': 'اول یک فریم انتخاب کن',
-    'toast.tooManyImages': 'حداکثر ۵۰۰ تصویر مجاز است',
+    'toast.tooManyImages': 'حداکثر ۳۰۰ تصویر مجاز است',
     'toast.invalidFile': 'فایل {name} پشتیبانی نمی‌شه',
     'toast.fileTooLarge': 'فایل {name} از ۲۰ مگابایت بزرگ‌تره',
     'toast.processComplete': 'پردازش کامل شد — ZIP در حال دانلود',
@@ -77,8 +77,8 @@ const dictionaries = {
   },
 
   en: {
-    'app.title': 'Frame Studio — Batch Frame Applicator',
-    'app.name': 'Frame Studio',
+    'app.title': 'Image Overlay Tool',
+    'app.name': 'Image Overlay Tool',
     'app.tagline': 'Apply a frame to many images at once',
     'hero.title': 'Frame all your images in one click',
     'hero.subtitle': 'Upload your frame, drop in your images, and get a clean ZIP in your preferred format.',
@@ -92,7 +92,7 @@ const dictionaries = {
     'frame.loaded': 'Frame loaded',
 
     'images.cta': 'Drop images here or click to browse',
-    'images.hint': 'Up to 500 images — all formats supported',
+    'images.hint': 'Up to 300 images — all formats supported',
     'images.added': 'Added:',
     'images.addMore': 'Add more',
     'images.clearAll': 'Clear all',
@@ -135,7 +135,7 @@ const dictionaries = {
     'progress.zipping': 'Building ZIP file…',
 
     'toast.frameRequired': 'Please select a frame first',
-    'toast.tooManyImages': 'Maximum 500 images allowed',
+    'toast.tooManyImages': 'Maximum 300 images allowed',
     'toast.invalidFile': 'File {name} is not supported',
     'toast.fileTooLarge': 'File {name} exceeds 20 MB',
     'toast.processComplete': 'Done — your ZIP is downloading',

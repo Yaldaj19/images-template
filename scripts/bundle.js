@@ -1,5 +1,5 @@
 /* ============================================================
-   Frame Studio — Single-file bundle
+   جایگذاری الگو/امضا روی تصویر (Image Overlay Tool) — Single-file bundle
    Works with both file:// and http:// protocols.
    No ES module imports, no module workers.
    ============================================================ */
@@ -46,8 +46,8 @@
   /* ========== i18n ========== */
   const dictionaries = {
     fa: {
-      'app.title': 'Frame Studio — اعمال فریم روی تصاویر',
-      'app.name': 'Frame Studio',
+      'app.title': 'جایگذاری الگو/امضا روی تصویر',
+      'app.name': 'جایگذاری الگو/امضا روی تصویر',
       'app.tagline': 'اعمال فریم روی دسته‌ای از تصاویر',
       'hero.title': 'تصاویرتو با یک کلیک فریم بزن',
       'hero.subtitle': 'فریم رو آپلود کن، تصاویرت رو پشت بنداز، و یک فایل ZIP تمیز با فرمت دلخواه بگیر.',
@@ -110,8 +110,8 @@
       'unit.mb': 'MB',
     },
     en: {
-      'app.title': 'Frame Studio — Batch Frame Applicator',
-      'app.name': 'Frame Studio',
+      'app.title': 'Image Overlay Tool',
+      'app.name': 'Image Overlay Tool',
       'app.tagline': 'Apply a frame to many images at once',
       'hero.title': 'Frame all your images in one click',
       'hero.subtitle': 'Upload your frame, drop in your images, and get a clean ZIP in your preferred format.',

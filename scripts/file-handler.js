@@ -3,7 +3,7 @@
 import { t } from './i18n.js';
 import { showToast } from './ui.js';
 
-const MAX_IMAGES = 500;
+const MAX_IMAGES = 300;
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
 const VALID_IMAGE_PATTERN = /^image\//i;

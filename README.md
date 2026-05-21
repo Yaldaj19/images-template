@@ -1,8 +1,8 @@
 <div align="center">
 
-# Frame Studio — Images Template
+# Image Overlay Tool · جایگذاری الگو/امضا روی تصویر
 
-**Apply a frame/template to multiple images and download them as a ZIP**
+**Apply a frame/template/signature to multiple images and download them as a ZIP**
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -28,13 +28,13 @@ A lightweight, **dependency-free** web tool that lets you batch-apply a visual f
 ### Quick Start
 ```bash
 # Clone the repo
-git clone https://github.com/Yaldaj19/images-template.git
-cd images-template
+git clone https://github.com/Yaldaj19/set-images-template.git
+cd set-images-template
 
 # Open in your browser (any modern browser works)
-start app.html       # Windows
-open app.html        # macOS
-xdg-open app.html    # Linux
+start Images-template-page.html       # Windows
+open Images-template-page.html        # macOS
+xdg-open Images-template-page.html    # Linux
 ```
 
 That's it. No dependencies to install. No build step. Everything is loaded via CDN.
@@ -48,7 +48,7 @@ python -m http.server 8000
 # Node
 npx serve .
 ```
-Then visit `http://localhost:8000/app.html`.
+Then visit `http://localhost:8000/Images-template-page.html`.
 
 ---
 
@@ -67,11 +67,11 @@ Then visit `http://localhost:8000/app.html`.
 ## 📂 Project Structure
 
 ```
-images-template/
-├── app.html         # Main entry point — open this in browser
-├── assets/          # Images, frame templates
-├── scripts/         # JavaScript modules
-└── styles/          # Custom CSS
+set-images-template/
+├── Images-template-page.html   # Main entry point — open this in browser
+├── assets/                     # favicon, images, frame templates
+├── scripts/                    # JavaScript modules
+└── styles/                     # Custom CSS
 ```
 
 ---
@@ -90,3 +90,9 @@ images-template/
 ## 🌐 Browser Support
 
 Works on all modern browsers: Chrome, Firefox, Edge, Safari (latest 2 versions).
+
+---
+
+## 📄 License
+
+Released under the [MIT License](LICENSE).
