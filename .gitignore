@@ -1,17 +1,47 @@
-# OS
+# OS — macOS
 .DS_Store
+
+# OS — Windows system files
 Thumbs.db
+Desktop.ini
+*.lnk
 
-# Editor
-.vscode/
-.idea/
-
-# Dependencies
-node_modules/
+# Editor / IDE
+/.idea
+/.vscode
+/node_modules
+*.css.map
 
 # Build output
 dist/
 build/
 
-# Claude Code local settings (may contain secrets - never commit)
+# Claude Code local settings (may contain secrets — never commit)
 .claude/settings.local.json
+
+# Windows reserved filenames (prevent nul/con/prn issues)
+nul
+nul.*
+con
+con.*
+prn
+prn.*
+aux
+aux.*
+com[1-9]
+com[1-9].*
+lpt[1-9]
+lpt[1-9].*
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Deployment — credentials & playbook, NEVER commit
+.deploy.ini
+DEPLOY_INSTRUCTIONS.md
+
+# Playwright (browser automation)
+.playwright-mcp/
+playwright-profile/
