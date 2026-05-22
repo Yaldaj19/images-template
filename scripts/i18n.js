@@ -67,8 +67,7 @@ const dictionaries = {
     'toast.processError': 'خطایی رخ داد: {msg}',
     'toast.itemsFailed': '{n} تصویر پردازش نشد',
 
-    'footer.credit': 'ساخته شده به وسیله YJ19',
-    'footer.local': 'کاملاً محلی، هیچ فایلی به سرور ارسال نمی‌شه',
+    'footer.credit': 'ساخته شده به وسیله',
 
     'unit.seconds': 'ث',
     'unit.minutes': 'دق',
@@ -142,8 +141,7 @@ const dictionaries = {
     'toast.processError': 'Error: {msg}',
     'toast.itemsFailed': '{n} image(s) failed to process',
 
-    'footer.credit': 'Made by YJ19',
-    'footer.local': 'fully local — nothing leaves your browser',
+    'footer.credit': 'Made by',
 
     'unit.seconds': 's',
     'unit.minutes': 'm',
