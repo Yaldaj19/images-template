@@ -1,6 +1,6 @@
 <div align="center">
 
-# Image Overlay Tool · جایگذاری الگو/امضا روی تصویر
+# Image Overlay Tool · جایگذاری قالب روی تصویر
 
 **Apply a frame/template/signature to multiple images and download them as a ZIP**
 

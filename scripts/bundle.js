@@ -1,5 +1,5 @@
 /* ============================================================
-   جایگذاری الگو/امضا روی تصویر (Image Overlay Tool) — Single-file bundle
+   جایگذاری قالب روی تصویر (Image Overlay Tool) — Single-file bundle
    Works with both file:// and http:// protocols.
    No ES module imports, no module workers.
    ============================================================ */
@@ -46,17 +46,17 @@
   /* ========== i18n ========== */
   const dictionaries = {
     fa: {
-      'app.title': 'جایگذاری الگو/امضا روی تصویر',
-      'app.name': 'جایگذاری الگو/امضا روی تصویر',
-      'app.tagline': 'اعمال فریم روی دسته‌ای از تصاویر',
+      'app.title': 'جایگذاری قالب روی تصویر',
+      'app.name': 'جایگذاری قالب روی تصویر',
+      'app.tagline': 'اعمال قالب روی دسته‌ای از تصاویر',
       'pwa.install': 'نصب اپ',
-      'hero.title': 'تصاویرتو با یک کلیک فریم بزن',
-      'hero.subtitle': 'فریم رو آپلود کن، تصاویرت رو پشت بنداز، و یک فایل ZIP تمیز با فرمت دلخواه بگیر.',
-      'step.frame.title': '۱. انتخاب فریم',
+      'hero.title': 'تصاویرتو با یک کلیک قالب بزن',
+      'hero.subtitle': 'قالب رو آپلود کن، تصاویرت رو پشت بنداز، و یک فایل ZIP تمیز با فرمت دلخواه بگیر.',
+      'step.frame.title': '۱. انتخاب قالب',
       'step.images.title': '۲. انتخاب تصاویر',
       'step.settings.title': '۳. تنظیمات',
       'step.settings.optional': 'اختیاری — در صورت عدم تنظیم، موارد پیش‌فرض اعمال می‌شود',
-      'frame.cta': 'فریم رو بکش اینجا یا کلیک کن',
+      'frame.cta': 'قالب رو بکش اینجا یا کلیک کن',
       'frame.hint': 'پیشنهاد: PNG شفاف با ابعاد یکسان با تصاویر هدف',
       'images.cta': 'تصاویر رو اینجا بنداز یا کلیک کن',
       'images.hint': 'حداکثر ۳۰۰ تصویر — همه فرمت‌ها',
@@ -85,9 +85,9 @@
       'settings.naming.tokenDate': 'تاریخ',
       'action.process': 'پردازش و دانلود ZIP',
       'action.processing': 'در حال پردازش…',
-      'action.hint': 'ابتدا یک فریم و حداقل یک تصویر اضافه کن',
+      'action.hint': 'ابتدا یک قالب و حداقل یک تصویر اضافه کن',
       'action.hintReady': 'آماده! دکمه بالا رو بزن',
-      'action.hintNoFrame': 'فریم انتخاب نشده',
+      'action.hintNoFrame': 'قالب انتخاب نشده',
       'action.hintNoImages': 'تصویری انتخاب نشده',
       'progress.title': 'در حال پردازش…',
       'progress.done': 'انجام‌شده:',
@@ -96,7 +96,7 @@
       'progress.ofTotal': 'از',
       'progress.imgsPerSec': 'تصویر/ث',
       'progress.zipping': 'در حال ساخت فایل ZIP…',
-      'toast.frameRequired': 'اول یک فریم انتخاب کن',
+      'toast.frameRequired': 'اول یک قالب انتخاب کن',
       'toast.tooManyImages': 'حداکثر ۳۰۰ تصویر مجاز است',
       'toast.invalidFile': 'فایل {name} پشتیبانی نمی‌شه',
       'toast.fileTooLarge': 'فایل {name} از ۲۰ مگابایت بزرگ‌تره',
