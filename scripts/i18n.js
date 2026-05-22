@@ -5,6 +5,7 @@ const dictionaries = {
     'app.title': 'جایگذاری الگو/امضا روی تصویر',
     'app.name': 'جایگذاری الگو/امضا روی تصویر',
     'app.tagline': 'اعمال فریم روی دسته‌ای از تصاویر',
+    'pwa.install': 'نصب اپ',
     'hero.title': 'تصاویرتو با یک کلیک فریم بزن',
     'hero.subtitle': 'فریم رو آپلود کن، تصاویرت رو پشت بنداز، و یک فایل ZIP تمیز با فرمت دلخواه بگیر.',
 
@@ -79,6 +80,7 @@ const dictionaries = {
     'app.title': 'Image Overlay Tool',
     'app.name': 'Image Overlay Tool',
     'app.tagline': 'Apply a frame to many images at once',
+    'pwa.install': 'Install app',
     'hero.title': 'Frame all your images in one click',
     'hero.subtitle': 'Upload your frame, drop in your images, and get a clean ZIP in your preferred format.',
 

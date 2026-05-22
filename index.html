@@ -11,6 +11,14 @@
   <!-- Favicon -->
   <link rel="icon" href="assets/favicon.ico" />
 
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon-180.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="جایگذاری الگو" />
+
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="جایگذاری الگو/امضا روی تصویر" />
@@ -102,6 +110,12 @@
           <button data-lang-btn="fa" class="lang-btn px-2 sm:px-2.5 py-1 rounded-full">فا</button>
           <button data-lang-btn="en" class="lang-btn px-2 sm:px-2.5 py-1 rounded-full">EN</button>
         </div>
+        <button id="install-btn" type="button" class="glass-pill hidden items-center gap-1.5 h-9 px-2.5 text-[11px] sm:text-xs font-semibold" aria-label="Install app">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>
+          </svg>
+          <span class="hidden sm:inline" data-i18n="pwa.install">نصب اپ</span>
+        </button>
         <button id="theme-toggle" class="glass-pill w-9 h-9 flex items-center justify-center" aria-label="Toggle theme">
           <svg class="w-4 h-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
@@ -335,6 +349,7 @@
   <div id="toast-container" class="fixed top-3 end-3 sm:top-4 sm:end-4 z-50 flex flex-col gap-2 max-w-[calc(100%-1.5rem)] sm:max-w-sm pointer-events-none" role="status" aria-live="polite" aria-atomic="false"></div>
 
   <!-- App entry (single bundle, no ES modules — works with file:// too) -->
-  <script defer src="scripts/bundle.js?v=20260522a"></script>
+  <script defer src="scripts/bundle.js?v=20260522b"></script>
+  <script defer src="scripts/pwa.js?v=20260522a"></script>
 </body>
 </html>

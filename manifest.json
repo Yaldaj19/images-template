@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "جایگذاری الگو/امضا روی تصویر",
+  "short_name": "جایگذاری الگو",
+  "description": "ابزار جایگذاری دسته‌ای الگو، فریم یا امضا روی تصاویر و دریافت خروجی ZIP.",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#05060e",
+  "theme_color": "#05060e",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
